@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.hnf.dapeng.controller.MainPageController"
+           prefHeight="780.0" prefWidth="1530.0">
+    <SplitPane dividerPositions="0.82">
+        <StackPane StackPane.alignment="TOP_RIGHT">
+            <StackPane fx:id="webView">
+            </StackPane>
+            <Button fx:id="button" text="下载列表" onMouseClicked="#showDownloadList" StackPane.alignment="CENTER_RIGHT">
+            </Button>
+            <StackPane fx:id="downloadListPane" visible="false"
+                       StackPane.alignment="TOP_CENTER" minWidth="440" minHeight="370">
+                <StackPane.margin>
+                    <Insets top="150" left="300" bottom="150" right="300"/>
+                </StackPane.margin>
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <TableView fx:id="downloadTableView">
+                        <columns>
+                            <TableColumn fx:id="idColumn" text="序号"/>
+                            <TableColumn fx:id="videoNameColumn" text="视频名称"/>
+                            <TableColumn fx:id="progressColumn" text="下载进度"/>
+                            <TableColumn fx:id="speedColumn" text="下载速度"/>
+                            <TableColumn fx:id="operationColumn" text="操作"/>
+                        </columns>
+                    </TableView>
+                </ScrollPane>
+            </StackPane>
+        </StackPane>
+        <StackPane prefWidth="280" minWidth="280" maxWidth="560" StackPane.alignment="CENTER_RIGHT">
+            <Label text="可下载视频列表" style="-fx-font-size: 14" StackPane.alignment="TOP_LEFT">
+                <StackPane.margin>
+                    <Insets left="4" top="4"/>
+                </StackPane.margin>
+            </Label>
+            <Button text="清空缓存并刷新网页" onMouseClicked="#refreshWebPage" StackPane.alignment="TOP_RIGHT">
+                <StackPane.margin>
+                    <Insets right="4" top="4"/>
+                </StackPane.margin>
+            </Button>
+            <Label fx:id="videoSavePathLabel" text="视频存储路径:" onMouseClicked="#modifyStorePath"
+                   style="-fx-font-size: 14;-fx-cursor: hand"
+                   StackPane.alignment="TOP_LEFT">
+                <StackPane.margin>
+                    <Insets left="4" top="32"/>
+                </StackPane.margin>
+            </Label>
+            <StackPane style="-fx-border-color: black;-fx-border-width: 1 0 0 0"
+                       maxHeight="42" prefHeight="42" StackPane.alignment="TOP_CENTER">
+                <StackPane.margin>
+                    <Insets top="64"/>
+                </StackPane.margin>
+                <HBox spacing="6" alignment="CENTER_RIGHT">
+                    <CheckBox fx:id="batchButton" >
+                    </CheckBox>
+                    <Button text="批量下载" onMouseClicked="#batchDownload">
+                        <HBox.margin>
+                            <Insets right="24"/>
+                        </HBox.margin>
+                    </Button>
+                </HBox>
+            </StackPane>
+            <StackPane style="-fx-border-color: black;-fx-border-width: 1 0 0 0"
+                       StackPane.alignment="TOP_CENTER">
+                <StackPane.margin>
+                    <Insets top="106"/>
+                </StackPane.margin>
+                <ScrollPane fitToHeight="true" fitToWidth="true">
+                    <VBox fx:id="videoListBox">
+
+                    </VBox>
+                </ScrollPane>
+            </StackPane>
+        </StackPane>
+    </SplitPane>
+</StackPane>
