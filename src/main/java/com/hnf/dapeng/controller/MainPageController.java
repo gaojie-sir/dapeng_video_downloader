@@ -51,6 +51,8 @@ public class MainPageController implements Initializable {
 	public TableColumn<DownloadBox, Button> operationColumn;
 	public Button button;
 	public CheckBox batchButton;
+	public StackPane aboutCoverPane;
+	public StackPane aboutPane;
 	@FXML
 	private StackPane webView;
 	@FXML
@@ -58,8 +60,12 @@ public class MainPageController implements Initializable {
 
 	private Browser browser;
 
-	public static final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+	private boolean notShowAboutPane = false;
+	public static final ExecutorService executorService = Executors.newFixedThreadPool(2);
 
+	public void setNotShowAboutPane(boolean notShowAboutPane) {
+		this.notShowAboutPane = notShowAboutPane;
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -309,16 +315,19 @@ public class MainPageController implements Initializable {
 				JSONObject videoContent = chapterJson.getJSONObject("videoContent");
 				String vid = videoContent.getString("vid");
 				String duration = videoContent.getString("duration");
-				addVideoToView(title, vid, duration);
+				addVideoToView(title, vid, duration, Video.VideoDefinition.HD1);
 			}
 		} catch (Exception e) {
 		}
 	}
 
 
-	private void addVideoToView(String title, String vid, String duration) {
+	private void addVideoToView(String title, String vid, String duration, Video.VideoDefinition videoDefinition) {
 		Platform.runLater(() -> {
 			Video video = new Video(title, vid, duration);
+			if (videoDefinition != null) {
+				video.setDefinition(videoDefinition.getDefinition());
+			}
 			video.getCheckBox().setSelected(batchButton.isSelected());
 			videoListBox.getChildren().add(video);
 			video.getButton().setOnMouseClicked(event -> {
@@ -343,7 +352,7 @@ public class MainPageController implements Initializable {
 					String vid = videoContent.getString("vid");
 					String title = videoContent.getString("title");
 					String duration = videoContent.getString("duration");
-					addVideoToView(title, vid, duration);
+					addVideoToView(title, vid, duration, Video.VideoDefinition.HD3);
 				}
 			}
 		} catch (Exception e) {
@@ -411,8 +420,25 @@ public class MainPageController implements Initializable {
 	}
 
 	public void showDownloadList() {
-		downloadListPane.setVisible(!downloadListPane.isVisible());
+		boolean showDownloadPane = !downloadListPane.isVisible();
+		downloadListPane.setVisible(showDownloadPane);
+		if (!notShowAboutPane && showDownloadPane) {
+			showAboutPane(true);
+		}
 	}
 
 
+	public void showAboutPane(boolean show) {
+		aboutCoverPane.setVisible(show);
+		aboutPane.setVisible(show);
+	}
+
+	public void closeAboutPane(MouseEvent mouseEvent) {
+		showAboutPane(false);
+	}
+
+	public void notShowAboutPane(MouseEvent mouseEvent) {
+		setNotShowAboutPane(true);
+		showAboutPane(false);
+	}
 }

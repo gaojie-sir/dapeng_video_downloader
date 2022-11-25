@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
@@ -30,6 +32,25 @@
                     </TableView>
                 </ScrollPane>
             </StackPane>
+            <StackPane fx:id="aboutCoverPane" visible="false" style="-fx-opacity: 0.5;-fx-background-color: black">
+            </StackPane>
+            <StackPane fx:id="aboutPane" onMouseClicked="#closeAboutPane" visible="false">
+                <VBox spacing="20" alignment="CENTER">
+                    <HBox spacing="12" alignment="CENTER">
+                        <ImageView fitHeight="290" fitWidth="250">
+                            <image>
+                                <Image url="@/fx/img/aplipay.jpg"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="290" fitWidth="250">
+                            <image>
+                                <Image url="@/fx/img/wx.jpg"/>
+                            </image>
+                        </ImageView>
+                    </HBox>
+                    <Button text="本次不再显示打赏页面" onMouseClicked="#notShowAboutPane"/>
+                </VBox>
+            </StackPane>
         </StackPane>
         <StackPane prefWidth="280" minWidth="280" maxWidth="560" StackPane.alignment="CENTER_RIGHT">
             <Label text="可下载视频列表" style="-fx-font-size: 14" StackPane.alignment="TOP_LEFT">
@@ -55,7 +76,7 @@
                     <Insets top="64"/>
                 </StackPane.margin>
                 <HBox spacing="6" alignment="CENTER_RIGHT">
-                    <CheckBox fx:id="batchButton" >
+                    <CheckBox fx:id="batchButton">
                     </CheckBox>
                     <Button text="批量下载" onMouseClicked="#batchDownload">
                         <HBox.margin>

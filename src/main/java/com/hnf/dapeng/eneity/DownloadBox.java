@@ -108,15 +108,13 @@ public class DownloadBox implements Runnable, Serializable {
 
 
 	private void initTask() {
-		Platform.runLater(() -> {
-			setProgress(0.0);
-			setSpeed("等待");
-			button.setText("取消");
-			setDone(false);
-			cancel.set(false);
-			isRun.set(false);
-			mainPageController.setOnMouseCheckDownLoadBoxCancelButton(this);
-		});
+		setProgress(0.0);
+		setSpeed("等待");
+		button.setText("取消");
+		setDone(false);
+		cancel.set(false);
+		isRun.set(false);
+		mainPageController.setOnMouseCheckDownLoadBoxCancelButton(this);
 	}
 
 
@@ -127,8 +125,8 @@ public class DownloadBox implements Runnable, Serializable {
 			setProgress(0.0);
 			setDone(true);
 			button.setOnMouseClicked(event -> {
-				MainPageController.executorService.execute(this);
 				initTask();
+				MainPageController.executorService.execute(this);
 			});
 		});
 	}
@@ -179,7 +177,6 @@ public class DownloadBox implements Runnable, Serializable {
 		result = result.replaceAll("= ", "=");
 		String[] s = result.split(" ");
 		for (String s1 : s) {
-			System.out.println("s1 = " + s1);
 			if (s1.startsWith("bitrate")) {
 				return s1.replaceAll("bitrate=", "");
 			}

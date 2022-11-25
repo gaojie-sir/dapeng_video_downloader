@@ -36,6 +36,10 @@ public class Video extends VBox {
 		init();
 	}
 
+	public void setDefinition(int definition) {
+		this.definition = definition;
+	}
+
 	public CheckBox getCheckBox() {
 		return checkBox;
 	}
@@ -89,7 +93,7 @@ public class Video extends VBox {
 			commands.add("-user_agent");
 			commands.add("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36");
 			commands.add("-i");
-			commands.add("https://hls.videocc.net/" + substring + "/6/" + vid + "_" + definition + ".m3u8?device=desktop&pid=1668996969401X1417421");
+			commands.add("https://hls.videocc.net/" + substring + "/f/" + vid + "_" + definition + ".m3u8?device=desktop&pid=1668996969401X1417421");
 			commands.add("-c");
 			commands.add("copy");
 			commands.add("-bsf:a");
@@ -104,7 +108,7 @@ public class Video extends VBox {
 	}
 
 
-	enum VideoDefinition {
+	public enum VideoDefinition {
 		HD3(3, "原画"),
 		HD2(2, "超清"),
 		HD1(1, "标准"),
